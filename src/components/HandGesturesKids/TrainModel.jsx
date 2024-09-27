@@ -19,7 +19,7 @@ const TrainModel = ({
   const [completedEpoch, setCompletedEpoch] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isReadyToTrain, setIsReadyToTrain] = useState(false);
-  const chickAudioRef = useRef(null);
+  const waterDropAudioRef = useRef(null);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
@@ -59,7 +59,7 @@ const TrainModel = ({
   };
 
   const handleTrainModel = () => {
-    chickAudioRef?.current?.play();
+    waterDropAudioRef?.current?.play();
     setIsLoading(true);
     trainModel();
   };
@@ -124,7 +124,7 @@ const TrainModel = ({
           }}
         />
       )}
-      <audio ref={chickAudioRef} src="/music/chicks.mp3" />
+      <audio ref={waterDropAudioRef} src="/music/waterdrop.mp3" />
     </Box>
   );
 };

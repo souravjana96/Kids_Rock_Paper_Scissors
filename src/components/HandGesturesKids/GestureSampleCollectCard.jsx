@@ -213,7 +213,7 @@ const GestureSampleCollectCard = ({
   isModelLoading,
 }) => {
   const [showPreview, setShowPreview] = useState(false);
-
+  const waterDropAudioRef = useRef();
   return (
     <Box
       className={`card-${index}`}
@@ -295,6 +295,8 @@ const GestureSampleCollectCard = ({
                 },
               }}
               onClick={() => {
+                waterDropAudioRef?.current?.play();
+
                 setShowPreview(true);
                 setActiveCard(samples[index]?.name);
               }}
@@ -449,6 +451,8 @@ const GestureSampleCollectCard = ({
                   >
                     <IconButton
                       onClick={() => {
+                        waterDropAudioRef?.current?.play();
+
                         setSamples((prev) => {
                           let newArr = [...prev];
                           newArr[index].images.splice(i, 1);
@@ -465,6 +469,7 @@ const GestureSampleCollectCard = ({
           </Box>
         </PerfectScrollbar>
       </Box>
+      <audio ref={waterDropAudioRef} src="/music/waterdrop.mp3" />
     </Box>
   );
 };

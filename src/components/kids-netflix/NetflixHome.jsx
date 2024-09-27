@@ -7,7 +7,7 @@ import {
   useTheme,
   IconButton,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import GestureSampleCollectCard from "../HandGesturesKids/GestureSampleCollectCard";
 import { useRouter } from "next/router";
 import * as tf from "@tensorflow/tfjs";
@@ -378,13 +378,16 @@ const NetflixHome = () => {
   const [trainingDataOutputs, setTrainingDataOutputs] = useState([]);
   const [highestIndex, setHighestIndex] = useState(0);
   const [isModelLoading, setIsModelLoading] = useState(false);
+  const waterDropAudioRef = useRef();
 
   const goToPreviousPage = () => {
+    waterDropAudioRef?.current?.play();
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
   };
   const goToNextPage = () => {
+    waterDropAudioRef?.current?.play();
     if (currentPage < 5) {
       setCurrentPage(currentPage + 1);
     }
@@ -631,6 +634,8 @@ const NetflixHome = () => {
           )}
         </Box>
       )}
+
+      <audio ref={waterDropAudioRef} src="/music/waterdrop.mp3" />
     </Box>
   );
 };

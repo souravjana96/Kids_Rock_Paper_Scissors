@@ -18,7 +18,7 @@ import Image from "next/image";
 const ControlVideoPlayerWithHandGesture = ({ keyCode, paused, setPaused }) => {
   const videoSRC = [
     {
-      url: "https://firebasestorage.googleapis.com/v0/b/videsh-47516.appspot.com/o/ai_labs%2FNetflix_videos%2FThe%20Silent%20Sea%20_%20Official%20Trailer%20_%20Netflix.mp4?alt=media&token=3d62dced-65c9-45cb-a617-cdf59776d6c4",
+      url: "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2Fvideoplayback%20(2).mp4?alt=media&token=8ef018e6-830e-4c19-a6fe-4d6a95db5bf6",
 
       title: "Avengers",
       genre: "Sci-fi",
@@ -26,7 +26,7 @@ const ControlVideoPlayerWithHandGesture = ({ keyCode, paused, setPaused }) => {
     },
 
     {
-      url: "https://firebasestorage.googleapis.com/v0/b/ai-courses-cc7f0.appspot.com/o/videos%2Fnetflix%2FOVER%20THE%20MOON%20_%20Official%20Trailer%20%231%20_%20A%20Netflix_Pearl%20Studio%20Production.mp4?alt=media&token=1c904258-77b5-42fe-bb9f-be0062b92a94",
+      url: "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBaby%20Tiger%20Friend_%20%F0%9F%90%AFMighty%20Little%20Bheem%20_%20Netflix%20Jr.mp4?alt=media&token=ed4738be-0fc2-4e33-8d52-39c2df777f28",
       title: "Avengers",
       genre: "Animation",
       position: 1,
