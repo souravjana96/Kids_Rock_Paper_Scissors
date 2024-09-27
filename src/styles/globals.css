@@ -8,7 +8,7 @@
 }
 
 body {
-  cursor: url("paw2.png"), auto;
+  cursor: url("../../public/images/paw2.png"), auto;
   background: var(--bg);
   font-family: "Sofadi One", "Open Sans", "Helvetica Neue", -apple-system,
     BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
