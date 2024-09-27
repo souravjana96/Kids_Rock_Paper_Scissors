@@ -19,6 +19,7 @@ import Game from "./Game";
 import { WaveSvg } from "./SVG";
 import GestureSampleCollectCard from "./GestureSampleCollectCard";
 import FramerMotionAnimatedContainer from "../common/FramerMotionAnimatedContainer";
+import BadgeDisplay from "../common/BadgeDisplay";
 
 const DataCollection = ({
   samples,
@@ -212,6 +213,9 @@ const RPCHomePage = () => {
 
   return (
     <Box>
+      {/* <Box sx={{ position: "fixed", top: "10%", left: "20px", zIndex: 1000 }}>
+        <BadgeDisplay activeBadges={[1, 3, 5]} />
+      </Box> */}
       {currentPage == 0 && (
         <Box>
           <Box

@@ -19,13 +19,13 @@ body {
   cursor: url("paw2.png"), auto;
 } */
 .Rock {
-  cursor: url("rock.png"), auto;
+  cursor: url("rock.png"), auto !important;
 }
 .Paper {
-  cursor: url("paper.png"), auto;
+  cursor: url("paper.png"), auto !important;
 }
 .Scissors {
-  cursor: url("scissors.png"), auto;
+  cursor: url("scissors.png"), auto !important;
 }
 .sofadi-one-font {
   font-family: "Sofadi One", system-ui !important;
@@ -33,8 +33,8 @@ body {
   font-style: normal;
 }
 button {
-  cursor: url("cursor.png"), pointer;
+  cursor: url("cursor.png"), pointer !important;
 }
 .MuiButton-root {
-  cursor: url("cursor.png"), pointer;
+  cursor: url("cursor.png"), pointer !important;
 }
