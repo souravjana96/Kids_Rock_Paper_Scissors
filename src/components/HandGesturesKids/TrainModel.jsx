@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import loading_cat_animation from "../../../public/lotties/common/loading_cat.json";
 import Lottie from "lottie-react";
 
@@ -19,6 +19,7 @@ const TrainModel = ({
   const [completedEpoch, setCompletedEpoch] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isReadyToTrain, setIsReadyToTrain] = useState(false);
+  const chickAudioRef = useRef(null);
 
   const handleOpen = (value) => setOpen(open === value ? 0 : value);
 
@@ -58,6 +59,7 @@ const TrainModel = ({
   };
 
   const handleTrainModel = () => {
+    chickAudioRef?.current?.play();
     setIsLoading(true);
     trainModel();
   };
@@ -76,7 +78,7 @@ const TrainModel = ({
         maxWidth: "100vw",
         display: "flex",
         justifyContent: "center",
-        alignItems: 'center'
+        alignItems: "center",
       }}
     >
       {!isLoading ? (
@@ -122,6 +124,7 @@ const TrainModel = ({
           }}
         />
       )}
+      <audio ref={chickAudioRef} src="/music/chicks.mp3" />
     </Box>
   );
 };

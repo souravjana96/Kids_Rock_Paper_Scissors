@@ -7,7 +7,7 @@ import {
   useTheme,
   IconButton,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import * as tf from "@tensorflow/tfjs";
 import PreviousButton from "../buttons/PreviousButton";
@@ -18,6 +18,7 @@ import Image from "next/image";
 import Game from "./Game";
 import { WaveSvg } from "./SVG";
 import GestureSampleCollectCard from "./GestureSampleCollectCard";
+import FramerMotionAnimatedContainer from "../common/FramerMotionAnimatedContainer";
 
 const DataCollection = ({
   samples,
@@ -143,13 +144,16 @@ const RPCHomePage = () => {
   const [trainingDataOutputs, setTrainingDataOutputs] = useState([]);
   const [highestIndex, setHighestIndex] = useState(0);
   const [isModelLoading, setIsModelLoading] = useState(false);
+  const chickAudioRef = useRef(null);
 
   const goToPreviousPage = () => {
+    chickAudioRef?.current?.play();
     if (currentPage > 0) {
       setCurrentPage(currentPage - 1);
     }
   };
   const goToNextPage = () => {
+    chickAudioRef?.current?.play();
     if (currentPage < 5) {
       setCurrentPage(currentPage + 1);
     }
@@ -312,21 +316,23 @@ const RPCHomePage = () => {
             }}
           >
             <Box sx={{ pb: 5 }}>
-              <DataCollection
-                activeCard={activeCard}
-                setActiveCard={setActiveCard}
-                samples={samples}
-                setSamples={setSamples}
-                setTrainingDataInputs={setTrainingDataInputs}
-                setTrainingDataOutputs={setTrainingDataOutputs}
-                tf={tf}
-                model={model}
-                mobileNet={mobileNet}
-                isReadyToTrain={isReadyToTrain}
-                goToPreviousPage={goToPreviousPage}
-                goToNextPage={goToNextPage}
-                isModelLoading={isModelLoading}
-              />
+              <FramerMotionAnimatedContainer>
+                <DataCollection
+                  activeCard={activeCard}
+                  setActiveCard={setActiveCard}
+                  samples={samples}
+                  setSamples={setSamples}
+                  setTrainingDataInputs={setTrainingDataInputs}
+                  setTrainingDataOutputs={setTrainingDataOutputs}
+                  tf={tf}
+                  model={model}
+                  mobileNet={mobileNet}
+                  isReadyToTrain={isReadyToTrain}
+                  goToPreviousPage={goToPreviousPage}
+                  goToNextPage={goToNextPage}
+                  isModelLoading={isModelLoading}
+                />
+              </FramerMotionAnimatedContainer>
 
               {isReadyToTrain && (
                 <TrainPoseModel
@@ -362,6 +368,8 @@ const RPCHomePage = () => {
           goToNextPage={goToNextPage}
         />
       )}
+
+      <audio ref={chickAudioRef} src="/music/chicks.mp3" />
     </Box>
   );
 };

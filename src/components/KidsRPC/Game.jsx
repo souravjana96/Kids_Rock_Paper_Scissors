@@ -336,6 +336,7 @@ const MainActivity = ({
   goToNextPage,
   gameResult,
   setGameResult,
+  playResultSound,
 }) => {
   const [scoreHuman, setScoreHuman] = useState(0);
   const [scoreAI, setScoreAI] = useState(0);
@@ -349,9 +350,12 @@ const MainActivity = ({
   const [countDownEnabled, setCountDownEnabled] = useState(true);
   const winAudioRef = useRef(null);
   const loseAudioRef = useRef(null);
+  const tieAudioRef = useRef(null);
+  const timer5secAudioRef = useRef(null);
 
   const runTheGame = () => {
     setCountDownEnabled(true);
+    timer5secAudioRef?.current?.play();
     setTimeout(() => {
       setCountDownEnabled(false);
     }, 5000);
@@ -395,19 +399,20 @@ const MainActivity = ({
     setChosenByHuman(human);
     setChosenByAI(ai);
     if (human === ai) {
+      tieAudioRef?.current?.play();
       setWinner("draw");
     } else if (
       (human === 1 && ai === 3) ||
       (human === 3 && ai === 2) ||
       (human === 2 && ai === 1)
     ) {
+      winAudioRef?.current?.play();
       setWinner("human");
       setScoreHuman(scoreHuman + 1);
-      winAudioRef?.current?.play();
     } else {
+      loseAudioRef?.current?.play();
       setWinner("AI");
       setScoreAI(scoreAI + 1);
-      loseAudioRef?.current?.play();
     }
     setTimeout(() => {
       runTheGame();
@@ -415,15 +420,25 @@ const MainActivity = ({
   };
 
   const takeHumanInput = (rockOrPaperOrScissors) => {
-    setGameCount(gameCount + 1);
     setIsGameLoading(true);
     setTimeout(() => {
+      setGameCount(gameCount + 1);
       whoIsTheWinner({
         human: rockOrPaperOrScissors,
         ai: Math.floor(Math.random() * 3) + 1,
       });
       setIsGameLoading(false);
     }, 1000);
+  };
+
+  const handleSetGameResult = () => {
+    const winner_here =
+      scoreAI === scoreHuman ? "Tie" : scoreHuman > scoreAI ? "You" : "Bot";
+    setGameResult({
+      isGameOver: true,
+      winner: winner_here,
+    });
+    playResultSound(winner_here);
   };
 
   useEffect(() => {
@@ -440,15 +455,7 @@ const MainActivity = ({
     if (gameCount >= 4) {
       handlePauseTheGame();
       setTimeout(() => {
-        setGameResult({
-          isGameOver: true,
-          winner:
-            scoreAI === scoreHuman
-              ? "Tie"
-              : scoreHuman > scoreAI
-              ? "You"
-              : "Bot",
-        });
+        handleSetGameResult();
       }, 5000);
     }
   }, [gameCount, scoreAI, scoreHuman]);
@@ -493,7 +500,7 @@ const MainActivity = ({
               pb: 2,
             }}
           >
-            Remaining Rounds: {5 - gameCount}
+            Remaining Rounds: {4 - gameCount}
           </Typography>
 
           <Box
@@ -646,7 +653,7 @@ const MainActivity = ({
                         fontWeight: "800",
                       }}
                     >
-                      Draw
+                      Tie
                     </Typography>
                   )}
                 </>
@@ -895,6 +902,8 @@ const MainActivity = ({
 
       <audio ref={winAudioRef} src="/music/win.mp3" />
       <audio ref={loseAudioRef} src="/music/lose.mp3" />
+      <audio ref={tieAudioRef} src="/music/tie.mp3" />
+      <audio ref={timer5secAudioRef} src="/music/5sectimer.mp3" />
     </Box>
   );
 };
@@ -915,10 +924,25 @@ const Game = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [gameResult, setGameResult] = useState({
     isGameOver: true,
-    winner: "You",
+    winner: "",
   });
   const [gameStarted, setGameStarted] = useState(false);
-  console.log(gameResult);
+  const gameStartAudioRef = useRef(null);
+  const chickAudioRef = useRef(null);
+  const winAudioRef = useRef(null);
+  const loseAudioRef = useRef(null);
+  const tieAudioRef = useRef(null);
+
+  const playResultSound = (winner) => {
+    if (winner === "You") {
+      winAudioRef?.current?.play();
+    } else if (winner === "Bot") {
+      loseAudioRef?.current?.play();
+    } else if (winner === "Tie") {
+      tieAudioRef?.current?.play();
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -1050,7 +1074,7 @@ const Game = ({
                 ? "You Win"
                 : gameResult?.winner === "Bot"
                 ? "Bot Wins"
-                : "Draw"}
+                : "Tie"}
             </Typography>
             <Box
               sx={{
@@ -1135,10 +1159,8 @@ const Game = ({
                   },
                 }}
                 onClick={() => {
-                  setGameResult({
-                    isGameOver: false,
-                    winner: "Bot",
-                  });
+                  chickAudioRef?.current?.play();
+                  goToPreviousPage();
                 }}
               >
                 Go Back
@@ -1169,6 +1191,7 @@ const Game = ({
                   },
                 }}
                 onClick={() => {
+                  gameStartAudioRef?.current?.play();
                   setGameResult({
                     isGameOver: false,
                     winner: "Bot",
@@ -1218,6 +1241,7 @@ const Game = ({
                   },
                 }}
                 onClick={() => {
+                  gameStartAudioRef?.current?.play();
                   setIsPlaying(true);
                   setGameResult({
                     isGameOver: false,
@@ -1256,8 +1280,14 @@ const Game = ({
           goToNextPage={goToNextPage}
           gameResult={gameResult}
           setGameResult={setGameResult}
+          playResultSound={playResultSound}
         />
       )}
+      <audio ref={gameStartAudioRef} src="/music/gamestart.mp3" />
+      <audio ref={chickAudioRef} src="/music/chicks.mp3" />
+      <audio ref={winAudioRef} src="/music/win.mp3" />
+      <audio ref={loseAudioRef} src="/music/lose.mp3" />
+      <audio ref={tieAudioRef} src="/music/tie.mp3" />
     </Box>
   );
 };

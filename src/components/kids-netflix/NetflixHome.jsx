@@ -19,6 +19,7 @@ import Preview from "../HandGesturesKids/Preview";
 import { WaveSvg } from "./SVG";
 import { KeyboardBackspace } from "@mui/icons-material";
 import Image from "next/image";
+import FramerMotionAnimatedContainer from "../common/FramerMotionAnimatedContainer";
 // import AnimatedContainer from "../plant-disease/AnimatedContainer";
 // import { Tooltip } from "react-tooltip";
 
@@ -530,21 +531,23 @@ const NetflixHome = () => {
             }}
           >
             <Box sx={{ pb: 5 }}>
-              <DataCollection
-                activeCard={activeCard}
-                setActiveCard={setActiveCard}
-                samples={samples}
-                setSamples={setSamples}
-                setTrainingDataInputs={setTrainingDataInputs}
-                setTrainingDataOutputs={setTrainingDataOutputs}
-                tf={tf}
-                model={model}
-                mobileNet={mobileNet}
-                isReadyToTrain={isReadyToTrain}
-                goToPreviousPage={goToPreviousPage}
-                goToNextPage={goToNextPage}
-                isModelLoading={isModelLoading}
-              />
+              <FramerMotionAnimatedContainer>
+                <DataCollection
+                  activeCard={activeCard}
+                  setActiveCard={setActiveCard}
+                  samples={samples}
+                  setSamples={setSamples}
+                  setTrainingDataInputs={setTrainingDataInputs}
+                  setTrainingDataOutputs={setTrainingDataOutputs}
+                  tf={tf}
+                  model={model}
+                  mobileNet={mobileNet}
+                  isReadyToTrain={isReadyToTrain}
+                  goToPreviousPage={goToPreviousPage}
+                  goToNextPage={goToNextPage}
+                  isModelLoading={isModelLoading}
+                />
+              </FramerMotionAnimatedContainer>
               <Box
                 sx={{
                   display: "flex",

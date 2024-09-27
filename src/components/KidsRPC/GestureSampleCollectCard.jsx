@@ -29,6 +29,7 @@ const WebCam = ({
 }) => {
   const videoPlayer = useRef(null);
   const streamRef = useRef(null);
+
   const [isClicked, setIsClicked] = useState(false);
 
   const dataGatherLoop = () => {
@@ -213,6 +214,8 @@ const GestureSampleCollectCard = ({
   isModelLoading,
 }) => {
   const [showPreview, setShowPreview] = useState(false);
+  const chickAudioRef = useRef(null);
+
 
   return (
     <Box
@@ -298,6 +301,7 @@ const GestureSampleCollectCard = ({
               onClick={() => {
                 setShowPreview(true);
                 setActiveCard(samples[index]?.name);
+                chickAudioRef?.current?.play();
               }}
             >
               <Box
@@ -466,6 +470,7 @@ const GestureSampleCollectCard = ({
           </Box>
         </PerfectScrollbar>
       </Box>
+      <audio ref={chickAudioRef} src="/music/chicks.mp3" />
     </Box>
   );
 };
