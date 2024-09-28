@@ -23,6 +23,54 @@ import BadgeDisplay from "../common/BadgeDisplay";
 import Intro from "../common/Intro";
 import Outro from "../common/Outro";
 
+const initBadges = [
+  {
+    id: 1,
+    name: "Ethics",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Fethics.png?alt=media&token=f458c815-38f4-4be8-8da6-b291279f056b",
+    color: "#97375d",
+    enabled: false,
+    message: ``,
+  },
+  {
+    id: 2,
+    name: "Intelligence",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Fintelligence.png?alt=media&token=4fe74703-b3b5-4e8b-83de-324ca4670684",
+    color: "#5271ff",
+    enabled: true,
+    message: `Students will learn to use their hands to play rock-paper-scissors. They will see how the AI bot understands their gestures and how it can guess what they will do next. This helps them think more and change their plans to win against the bot.`,
+  },
+  {
+    id: 3,
+    name: "SDG Goals",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Fsdg.png?alt=media&token=88680c7e-aa1f-40ef-ba09-ef220b67d602",
+    color: "#00bf63",
+    enabled: false,
+    message: ``,
+  },
+  {
+    id: 4,
+    name: "Life Skills",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Flifeskills.png?alt=media&token=dabf57b4-3d71-46ee-986e-6ea9846fe249",
+    color: "#cb6ce6",
+    enabled: true,
+    message: `By playing many rounds, students will learn to focus and pay attention. They will practice changing their strategies and staying alert while playing against a smart bot that watches their moves.`,
+  },
+  {
+    id: 5,
+    name: "Creativity",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Fcreativity.png?alt=media&token=452d5f47-4d2b-4c3c-bf82-1d1e23bc4bcf",
+    color: "#5ce1e6",
+    enabled: true,
+    message: `The game makes students think of smart ways to beat the bot. It also helps them imagine how technology can guess what people do and how we can use AI in real life to solve problems.`,
+  },
+];
+
 const DataCollection = ({
   samples,
   setSamples,
@@ -217,11 +265,14 @@ const RPCHomePage = () => {
     <Box>
       {currentPage > 0 && (
         <Box sx={{ position: "fixed", top: "10%", left: "20px", zIndex: 1000 }}>
-          <BadgeDisplay activeBadges={[1, 3, 5]} />
+          <BadgeDisplay activeBadges={[2, 4, 5]} initBadges={initBadges} />
         </Box>
       )}
-       {currentPage === 0 && (
-        <Intro projectName={"Rock, Paper, Scissors Game"} handleOpenProject={goToNextPage} />
+      {currentPage === 0 && (
+        <Intro
+          projectName={"Rock, Paper, Scissors Game"}
+          handleOpenProject={goToNextPage}
+        />
       )}
       {currentPage == 1 && (
         <Box>
@@ -382,8 +433,8 @@ const RPCHomePage = () => {
       {currentPage === 3 && (
         <Outro
           content={[
-            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quae ad nemo similique veniam vel veritatis suscipit deserunt dolor, quas, excepturi, deleniti placeat nihil exercitationem alias animi cupiditate! In odio iste rem nulla quos veniam",
-            " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quae ad nemo similique veniam vel veritatis suscipit deserunt dolor, quas, excepturi, deleniti placeat nihil exercitationem alias animi cupiditate! In odio iste rem nulla quos veniam.",
+            "In this project, we learned how to use our hands to play rock-paper-scissors instead of buttons. It was fun to use gestures and see how we can control the game with our movements!",
+            "We also saw how the smart Bot can guess what we will do next by watching our patterns. This teaches us to think carefully and change our moves to win against the Bot!",
           ]}
           goToPreviousPage={goToPreviousPage}
         />

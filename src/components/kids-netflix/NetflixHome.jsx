@@ -32,6 +32,54 @@ import animated_ai_bot from "../../../public/lotties/netflix/game_over.json";
 import BackArrowButton from "../buttons/BackArrowButton";
 import CommonButton from "../buttons/CommonButton";
 
+const initBadges = [
+  {
+    id: 1,
+    name: "Ethics",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Fethics.png?alt=media&token=f458c815-38f4-4be8-8da6-b291279f056b",
+    color: "#97375d",
+    enabled: false,
+    message: ``,
+  },
+  {
+    id: 2,
+    name: "Intelligence",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Fintelligence.png?alt=media&token=4fe74703-b3b5-4e8b-83de-324ca4670684",
+    color: "#5271ff",
+    enabled: true,
+    message: `Students will understand how important it is to take precise hand gesture samples in front of the camera to improve the AI model’s accuracy, learning how small details can make a big difference in machine learning.`,
+  },
+  {
+    id: 3,
+    name: "SDG Goals",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Fsdg.png?alt=media&token=88680c7e-aa1f-40ef-ba09-ef220b67d602",
+    color: "#00bf63",
+    enabled: false,
+    message: ``,
+  },
+  {
+    id: 4,
+    name: "Life Skills",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Flifeskills.png?alt=media&token=dabf57b4-3d71-46ee-986e-6ea9846fe249",
+    color: "#cb6ce6",
+    enabled: true,
+    message: `By playing a simple game, students will develop the ability to focus and learn patience as they figure out what gestures to show, how to position their hands correctly in front of the webcam, and stay engaged with the game.`,
+  },
+  {
+    id: 5,
+    name: "Creativity",
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBadges%2Fcreativity.png?alt=media&token=452d5f47-4d2b-4c3c-bf82-1d1e23bc4bcf",
+    color: "#5ce1e6",
+    enabled: true,
+    message: `This app will inspire students to think creatively about how gestures can be used to control things without traditional remotes. It encourages them to imagine controlling devices like TVs, lights, or other gadgets at home through gestures, voice commands, or even other innovative ideas like facial expressions.`,
+  },
+];
+
 const DataCollection = ({
   samples,
   setSamples,
@@ -506,7 +554,7 @@ const NetflixHome = () => {
       )}
       {currentPage > 0 && (
         <Box sx={{ position: "fixed", top: "10%", left: "20px", zIndex: 1000 }}>
-          <BadgeDisplay activeBadges={[1, 3, 5]} />
+          <BadgeDisplay activeBadges={[2, 4, 5]} initBadges={initBadges} />
         </Box>
       )}
       {currentPage == 1 && (
@@ -660,8 +708,8 @@ const NetflixHome = () => {
       {currentPage === 3 && (
         <Outro
           content={[
-            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quae ad nemo similique veniam vel veritatis suscipit deserunt dolor, quas, excepturi, deleniti placeat nihil exercitationem alias animi cupiditate! In odio iste rem nulla quos veniam",
-            " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quae ad nemo similique veniam vel veritatis suscipit deserunt dolor, quas, excepturi, deleniti placeat nihil exercitationem alias animi cupiditate! In odio iste rem nulla quos veniam.",
+            "In this project, we learned how we can replace our traditional remote with cool hand gestures.",
+            "We saw how different gestures can be used for different tasks, showing us new ways to control things like videos or other devices.",
           ]}
           goToPreviousPage={goToPreviousPage}
         />

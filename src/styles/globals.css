@@ -8,7 +8,7 @@
 }
 
 body {
-  cursor: url("../../public/images/paw2.png"), auto;
+  cursor: url("/images/paw2.png"), auto;
   background: var(--bg);
   font-family: "Sofadi One", "Open Sans", "Helvetica Neue", -apple-system,
     BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
@@ -19,13 +19,13 @@ body {
   cursor: url("paw2.png"), auto;
 } */
 .Rock {
-  cursor: url("../../public/images/rock.png"), auto !important;
+  cursor: url("/images/rock.png"), auto !important;
 }
 .Paper {
-  cursor: url("../../public/images/paper.png"), auto !important;
+  cursor: url("/images/paper.png"), auto !important;
 }
 .Scissors {
-  cursor: url("../../public/images/scissors.png"), auto !important;
+  cursor: url("/images/scissors.png"), auto !important;
 }
 .sofadi-one-font {
   font-family: "Sofadi One", system-ui !important;
@@ -33,8 +33,8 @@ body {
   font-style: normal;
 }
 button {
-  cursor: url("../../public/images/cursor.png"), pointer !important;
+  cursor: url("/images/cursor.png"), pointer !important;
 }
 .MuiButton-root {
-  cursor: url("../../public/images/cursor.png"), pointer !important;
+  cursor: url("/images/cursor.png"), pointer !important;
 }
