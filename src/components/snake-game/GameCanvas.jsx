@@ -11,7 +11,11 @@ import {
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Swal from "sweetalert2";
-import { KeyboardBackspace } from "@mui/icons-material";
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  KeyboardBackspace,
+} from "@mui/icons-material";
 const renderTime = ({ remainingTime }) => {
   if (remainingTime === 0) {
     return (
@@ -153,7 +157,6 @@ const GameCanvas = ({
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, CANVAS_SIZE[0], CANVAS_SIZE[1]);
     context.fillStyle = "green";
-    // snake.forEach(([x, y]) => context.fillRect(x, y, 1, 1));
     snake.forEach(([x, y], index) => {
       context.fillStyle = index === 0 ? "#E74C3C" : "yellow";
 
@@ -232,7 +235,7 @@ const GameCanvas = ({
           <CountdownCircleTimer
             key={round}
             isPlaying
-            duration={60}
+            duration={6}
             size={220}
             strokeWidth={10}
             colors={["#00ff00", "#F1C40F", "#FF0000"]}
@@ -265,16 +268,47 @@ const GameCanvas = ({
           </Typography>
         </Box>
       )}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: 5,
-          py: 2,
-        }}
-      >
-        {gameOver && (
+
+      {gameOver && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            py: 5,
+            gap: 2,
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{
+              background: "#fff",
+              color: "#000",
+              fontWeight: "bold",
+              textTransform: "none",
+              letterSpacing: "2px",
+              borderRadius: "20px",
+              border: "2px solid #239b56",
+              boxShadow: "1px 1px 10px #000",
+              px: 5,
+              py: 1,
+              //   my: 1,
+              fontSize: "20px",
+              transition: "background 0.2s, transform 0.2s",
+
+              cursor: "pointer",
+
+              "&:hover": {
+                background: "#fff",
+                color: "#f34c89",
+                transform: "scale(1.05)",
+                boxShadow: "1px 1px 10px #000",
+              },
+            }}
+            onClick={goToPreviousPage}
+          >
+            <KeyboardArrowLeft /> Go Back
+          </Button>
           <Button
             onClick={startGame}
             sx={{
@@ -287,8 +321,7 @@ const GameCanvas = ({
               border: "2px solid #3498db",
               boxShadow: "1px 1px 10px #000",
               px: 5,
-              py: 2,
-              my: 1,
+              py: 1,
               fontSize: "20px",
               transition: "background 0.2s, transform 0.2s",
               cursor: "pointer",
@@ -303,8 +336,40 @@ const GameCanvas = ({
           >
             Play Again
           </Button>
-        )}
-      </Box>
+
+          <Button
+            variant="contained"
+            sx={{
+              background: "#fff",
+              color: "#000",
+              fontWeight: "bold",
+              textTransform: "none",
+              letterSpacing: "2px",
+              borderRadius: "20px",
+              border: "2px solid #239b56",
+              boxShadow: "1px 1px 10px #000",
+              px: 5,
+              py: 1,
+              //   my: 1,
+              fontSize: "20px",
+              transition: "background 0.2s, transform 0.2s",
+
+              cursor: "pointer",
+
+              "&:hover": {
+                background: "#fff",
+                color: "#f34c89",
+                transform: "scale(1.05)",
+                boxShadow: "1px 1px 10px #000",
+              },
+            }}
+            onClick={goToNextPage}
+          >
+            Next <KeyboardArrowRight />
+          </Button>
+        </Box>
+      )}
+
       <div
         style={{
           display: "flex",

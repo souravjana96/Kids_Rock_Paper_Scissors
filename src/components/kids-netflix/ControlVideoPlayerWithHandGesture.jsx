@@ -145,7 +145,7 @@ const ControlVideoPlayerWithHandGesture = ({
     },
 
     {
-      url: "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2Fangry_bird.mp4?alt=media&token=8d53e6fb-d2a9-4ebc-94ec-98932a5a19ee",
+      url: "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2Fangry_bird2.mp4?alt=media&token=11432fdc-edbf-4cdd-a07e-b1c62e842e22",
       title: "right",
       position: 1,
     },

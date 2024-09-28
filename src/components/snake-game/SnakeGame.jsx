@@ -97,7 +97,7 @@ const SnakeGame = ({
             gameOver={gameOver}
             setGameover={setGameover}
             goToPreviousPage={goToPreviousPage}
-            goToNextPage={goToPreviousPage}
+            goToNextPage={goToNextPage}
             setEnableGame={setEnableGame}
           />
 
