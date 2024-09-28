@@ -122,7 +122,16 @@ const GameCanvas = ({
   };
 
   const checkAppleCollision = (newSnake) => {
-    if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
+    const headX = newSnake[0][0];
+    const headY = newSnake[0][1];
+    const appleX = apple[0];
+    const appleY = apple[1];
+
+    const distanceX = Math.abs(headX - appleX);
+    const distanceY = Math.abs(headY - appleY);
+
+    const collisionDistance = 1.5; // Set tolerance for eating the apple
+    if (distanceX < collisionDistance && distanceY < collisionDistance) {
       foodAudioRef.current.play();
       let newApple = createApple();
       while (checkCollision(newApple, newSnake)) {
@@ -157,30 +166,134 @@ const GameCanvas = ({
     context.setTransform(SCALE, 0, 0, SCALE, 0, 0);
     context.clearRect(0, 0, CANVAS_SIZE[0], CANVAS_SIZE[1]);
     context.fillStyle = "green";
+    // Loop through each part of the snake body
     snake.forEach(([x, y], index) => {
-      context.fillStyle = index === 0 ? "#E74C3C" : "yellow";
+      // Adjust head size (bigger for the head)
+      const headSize = index === 0 ? 1.0 : 0.9; // Head is bigger
 
-      // If it's the 0th index, draw a rounded shape
+      // Different color for head and body
+      context.fillStyle = index === 0 ? "#E74C3C" : "yellow"; // Red for head, yellow for body
+
+      // Draw the head of the snake
       if (index === 0) {
-        const headSize = 0.6; // Adjust the size as needed
+        // Center the head properly
         context.beginPath();
         context.arc(x + 0.5, y + 0.5, headSize, 0, 2 * Math.PI);
         context.fill();
 
-        // Draw the face in the direction specified by the dir state
+        // Draw eyes based on the current direction
         const [dirX, dirY] = dir;
-        const faceX = x + 0.5 + (headSize / 2) * dirX;
-        const faceY = y + 0.5 + (headSize / 2) * dirY;
+
+        // Adjust eye positions based on the direction (this fixes tilt)
+        let eyeOffsetX1, eyeOffsetY1, eyeOffsetX2, eyeOffsetY2;
+
+        if (dirX === 1) {
+          // Moving right
+          eyeOffsetX1 = 0.3;
+          eyeOffsetY1 = 0.2;
+          eyeOffsetX2 = 0.3;
+          eyeOffsetY2 = -0.2;
+        } else if (dirX === -1) {
+          // Moving left
+          eyeOffsetX1 = -0.3;
+          eyeOffsetY1 = 0.2;
+          eyeOffsetX2 = -0.3;
+          eyeOffsetY2 = -0.2;
+        } else if (dirY === 1) {
+          // Moving down
+          eyeOffsetX1 = 0.2;
+          eyeOffsetY1 = 0.3;
+          eyeOffsetX2 = -0.2;
+          eyeOffsetY2 = 0.3;
+        } else {
+          // Moving up
+          eyeOffsetX1 = 0.2;
+          eyeOffsetY1 = -0.3;
+          eyeOffsetX2 = -0.2;
+          eyeOffsetY2 = -0.3;
+        }
+
+        // Draw the two eyes on the head
         context.fillStyle = "white";
         context.beginPath();
-        context.arc(faceX, faceY, 0.1, 0, 2 * Math.PI);
+        context.arc(
+          x + 0.5 + eyeOffsetX1,
+          y + 0.5 + eyeOffsetY1,
+          0.15,
+          0,
+          2 * Math.PI
+        ); // First eye
+        context.arc(
+          x + 0.5 + eyeOffsetX2,
+          y + 0.5 + eyeOffsetY2,
+          0.15,
+          0,
+          2 * Math.PI
+        ); // Second eye
+        context.fill();
+      } else if (index === snake.length - 1) {
+        // Draw the tail (triangular shape and thinner)
+        context.fillStyle = "yellow"; // Tail color is yellow
+
+        // Tail shape as a triangle
+        context.beginPath();
+        const [prevX, prevY] = snake[index - 1]; // Previous segment coordinates
+
+        // Calculate direction from second last to tail segment
+        const tailDirX = x - prevX;
+        const tailDirY = y - prevY;
+
+        // Define the points for the triangle (tail)
+        let tailTipX, tailTipY, baseLeftX, baseLeftY, baseRightX, baseRightY;
+
+        if (tailDirX === 1) {
+          // Tail going right
+          tailTipX = x + 1;
+          tailTipY = y + 0.5; // Triangle tip
+          baseLeftX = x;
+          baseLeftY = y + 0.3; // Triangle base left
+          baseRightX = x;
+          baseRightY = y + 0.7; // Triangle base right
+        } else if (tailDirX === -1) {
+          // Tail going left
+          tailTipX = x;
+          tailTipY = y + 0.5; // Triangle tip
+          baseLeftX = x + 1;
+          baseLeftY = y + 0.3; // Triangle base left
+          baseRightX = x + 1;
+          baseRightY = y + 0.7; // Triangle base right
+        } else if (tailDirY === 1) {
+          // Tail going down
+          tailTipX = x + 0.5;
+          tailTipY = y + 1; // Triangle tip
+          baseLeftX = x + 0.3;
+          baseLeftY = y; // Triangle base left
+          baseRightX = x + 0.7;
+          baseRightY = y; // Triangle base right
+        } else {
+          // Tail going up
+          tailTipX = x + 0.5;
+          tailTipY = y; // Triangle tip
+          baseLeftX = x + 0.3;
+          baseLeftY = y + 1; // Triangle base left
+          baseRightX = x + 0.7;
+          baseRightY = y + 1; // Triangle base right
+        }
+
+        // Draw the triangle
+        context.moveTo(tailTipX, tailTipY); // Tip of the triangle
+        context.lineTo(baseLeftX, baseLeftY); // Left corner of the base
+        context.lineTo(baseRightX, baseRightY); // Right corner of the base
+        context.closePath();
         context.fill();
       } else {
+        // Draw the body normally
         context.fillRect(x, y, 1, 1);
       }
     });
+
     context.fillStyle = "#58D68D";
-    const appleSize = 0.9; // Adjust the size of the apple as needed
+    const appleSize = 1.5; // Adjust the size of the apple as needed
     context.beginPath();
     context.arc(apple[0] + 0.5, apple[1] + 0.5, appleSize, 0, 2 * Math.PI);
     context.fill();
@@ -235,7 +348,7 @@ const GameCanvas = ({
           <CountdownCircleTimer
             key={round}
             isPlaying
-            duration={6}
+            duration={60}
             size={220}
             strokeWidth={10}
             colors={["#00ff00", "#F1C40F", "#FF0000"]}
