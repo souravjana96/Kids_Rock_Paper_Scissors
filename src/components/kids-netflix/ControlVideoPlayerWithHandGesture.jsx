@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import VideoPlayer from "./VideoPlayer";
+// import VideoPlayer from "./VideoPlayer";
 import { GiArrowCursor } from "react-icons/gi";
 import {
   Grid,
@@ -14,107 +14,195 @@ import {
 import ReactPlayer from "react-player";
 import { TvIcon } from "./SVG";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
-const ControlVideoPlayerWithHandGesture = ({ keyCode, paused, setPaused }) => {
+const VideoPlayer = ({
+  keyCode,
+  position,
+  url,
+  index,
+  title,
+  handleCompleted,
+  completedVideos,
+}) => {
+  const [playedPercentage, setPlayedPercentage] = useState(0);
+
+  const handleProgress = (state) => {
+    setPlayedPercentage(Math.floor(state.played * 100)); // Calculate the percentage played
+  };
+
+  const handleEnded = () => {
+    handleCompleted(title);
+  };
+  // completedVideos?.title
+
+  return (
+    <Box sx={{ width: "30%" }}>
+      <Box
+        sx={{
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          position: "relative",
+        }}
+      >
+        <TvIcon width={"100%"} />
+        <Box
+          sx={{
+            width: "100%",
+            aspectRatio: "16/9",
+            overflow: "hidden",
+            border: "1px solid #515A5A",
+            backgroundColor: "black",
+            transition: "transform 300ms ease-in-out",
+            // zIndex: keyCode == position ? 1 : 1,
+            position: "absolute",
+            top: "8%",
+          }}
+        >
+          <ReactPlayer
+            url={url}
+            height="100%"
+            width="100%"
+            controls={false}
+            playing={keyCode === position && !completedVideos?.[title]}
+            onProgress={handleProgress}
+            onEnded={handleEnded}
+            config={{
+              file: {
+                attributes: {
+                  controlsList: "nodownload",
+                },
+              },
+            }}
+          />
+        </Box>
+        <Box
+          sx={{
+            height: "2%",
+            width: "2%",
+            borderRadius: "50%",
+            background: keyCode == position ? "#f00" : "#000",
+            position: "absolute",
+            bottom: "31%",
+            boxShadow: keyCode == position ? "0px 0px 0px #f00" : "none",
+            animation: keyCode == position ? "pulse 1.5s infinite" : "none",
+            "@keyframes pulse": {
+              "0%": {
+                boxShadow: "0px 0px 0px #f00",
+              },
+              "50%": {
+                boxShadow: "0px 0px 20px #f00",
+              },
+              "100%": {
+                boxShadow: "0px 0px 0px #f00",
+              },
+            },
+          }}
+        ></Box>
+      </Box>
+      <Box>
+        <Typography variant="h5" color="#fff">
+          {playedPercentage}%
+        </Typography>
+        <Box
+          bgcolor="#CBD5E0"
+          sx={{
+            borderRadius: "10px",
+            overflow: "hidden",
+          }}
+        >
+          <Box
+            bgcolor="#41ab5c"
+            color="white"
+            textAlign="center"
+            padding={"7px"}
+            sx={{
+              width: `${playedPercentage}%`,
+              borderRadius: "10px",
+            }}
+          ></Box>
+        </Box>
+      </Box>
+    </Box>
+  );
+};
+
+const ControlVideoPlayerWithHandGesture = ({
+  keyCode,
+  paused,
+  setPaused,
+  setIsGameCompleted,
+}) => {
   const videoSRC = [
     {
-      url: "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2Fvideoplayback%20(2).mp4?alt=media&token=8ef018e6-830e-4c19-a6fe-4d6a95db5bf6",
+      url: "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBaby%20Tiger%20Friend_%20%F0%9F%90%AFMighty%20Little_clipped%20Bheem%20_%20Netflix%20Jr.mp4?alt=media&token=4e00759f-627f-427c-b5a7-3e35b56527b1",
 
-      title: "Avengers",
-      genre: "Sci-fi",
+      title: "left",
       position: 0,
     },
 
     {
-      url: "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2FBaby%20Tiger%20Friend_%20%F0%9F%90%AFMighty%20Little%20Bheem%20_%20Netflix%20Jr.mp4?alt=media&token=ed4738be-0fc2-4e33-8d52-39c2df777f28",
-      title: "Avengers",
-      genre: "Animation",
+      url: "https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2Fnetflix%20kids%2Fangry_bird.mp4?alt=media&token=8d53e6fb-d2a9-4ebc-94ec-98932a5a19ee",
+      title: "right",
       position: 1,
     },
   ];
+  const winAudioRef = useRef(null);
+  const [completedVideos, setCompletedVideos] = useState({
+    left: false,
+    right: false,
+  });
+  const handleCompleted = (title) => {
+    setCompletedVideos({ ...completedVideos, [title]: true });
+  };
 
+  useEffect(() => {
+    if (completedVideos?.left && completedVideos?.right) {
+      winAudioRef?.current?.play();
+
+      Swal.fire({
+        icon: "success",
+        title: "Great Job",
+        timer: 1000,
+      }).then((result) => {
+        setIsGameCompleted(true);
+      });
+    }
+  }, [completedVideos]);
   return (
     <div
-      // className="text-center font-bold text-5xl p-1"
-      style={{ textAlign: "center", padding: "5px" }}
+      style={{
+        textAlign: "center",
+      }}
     >
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-around",
           alignItems: "center",
+          flexWrap: "wrap",
+          marginBottom: "-100px",
         }}
       >
-        {videoSRC.map(({ url, position }, i) => (
-          <Box key={i} sx={{ width: "30%" }}>
-            <Box
-              sx={{
-                height: "100%",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                position: "relative",
-              }}
-            >
-              <TvIcon width={"100%"} />
-              <Box
-                component="div"
-                sx={{
-                  width: "100%",
-                  aspectRatio: "16/9",
-                  overflow: "hidden",
-                  border: "1px solid #515A5A",
-                  backgroundColor: "black",
-                  transition: "transform 300ms ease-in-out",
-                  // zIndex: keyCode == position ? 1 : 1,
-                  position: "absolute",
-                  top: "8%",
-                }}
-              >
-                <ReactPlayer
-                  url={url}
-                  height="100%"
-                  width="100%"
-                  controls={false}
-                  playing={keyCode === position}
-                  config={{
-                    file: {
-                      attributes: {
-                        controlsList: "nodownload",
-                      },
-                    },
-                  }}
-                />
-              </Box>
-              <Box
-                sx={{
-                  height: "2%",
-                  width: "2%",
-                  borderRadius: "50%",
-                  background: keyCode == position ? "#f00" : "#000",
-                  position: "absolute",
-                  bottom: "31%",
-                  boxShadow: keyCode == position ? "0px 0px 0px #f00" : "none",
-                  animation:
-                    keyCode == position ? "pulse 1.5s infinite" : "none",
-                  "@keyframes pulse": {
-                    "0%": {
-                      boxShadow: "0px 0px 0px #f00",
-                    },
-                    "50%": {
-                      boxShadow: "0px 0px 20px #f00",
-                    },
-                    "100%": {
-                      boxShadow: "0px 0px 0px #f00",
-                    },
-                  },
-                }}
-              ></Box>
-            </Box>
-          </Box>
-        ))}
+        {videoSRC.map(({ url, position, title }, i) => {
+          return (
+            <VideoPlayer
+              key={i}
+              index={i}
+              keyCode={keyCode}
+              position={position}
+              url={url}
+              title={title}
+              handleCompleted={handleCompleted}
+              completedVideos={completedVideos}
+            />
+          );
+        })}
       </Box>
+      <audio ref={winAudioRef} src="/music/win.mp3" />
     </div>
   );
 };

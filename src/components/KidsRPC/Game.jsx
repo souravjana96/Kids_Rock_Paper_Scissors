@@ -16,7 +16,11 @@ import winnerplayer from "../../../public/lotties/kids-rps/winnerplayer.json";
 
 import Image from "next/image";
 import NextButton from "../buttons/NextButton";
-import { KeyboardBackspace } from "@mui/icons-material";
+import {
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  KeyboardBackspace,
+} from "@mui/icons-material";
 
 const renderTime = ({ remainingTime }) => {
   if (remainingTime === 5) {
@@ -1136,7 +1140,8 @@ const Game = ({
               <Button
                 variant="contained"
                 sx={{
-                  color: "#fff",
+                  background: "#fff",
+                  color: "#f34c89",
                   fontWeight: "bold",
                   textTransform: "none",
                   letterSpacing: "2px",
@@ -1148,7 +1153,7 @@ const Game = ({
                   //   my: 1,
                   fontSize: "20px",
                   transition: "background 0.2s, transform 0.2s",
-                  background: "#239b56",
+
                   cursor: "pointer",
 
                   "&:hover": {
@@ -1163,7 +1168,7 @@ const Game = ({
                   goToPreviousPage();
                 }}
               >
-                Go Back
+                <KeyboardArrowLeft /> Go Back
               </Button>
               <Button
                 variant="contained"
@@ -1199,6 +1204,37 @@ const Game = ({
                 }}
               >
                 Play Again
+              </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  background: "#fff",
+                  color: "#f34c89",
+                  fontWeight: "bold",
+                  textTransform: "none",
+                  letterSpacing: "2px",
+                  borderRadius: "20px",
+                  border: "2px solid #239b56",
+                  boxShadow: "1px 1px 10px #000",
+                  px: 5,
+                  py: 1,
+                  //   my: 1,
+                  fontSize: "20px",
+                  transition: "background 0.2s, transform 0.2s",
+
+                  cursor: "pointer",
+
+                  "&:hover": {
+                    background: "#fff",
+                    color: "#f34c89",
+                    transform: "scale(1.05)",
+                    boxShadow: "1px 1px 10px #000",
+                  },
+                 
+                }}
+                onClick={goToNextPage}
+              >
+                Next <KeyboardArrowRight />
               </Button>
             </Box>
           </Box>

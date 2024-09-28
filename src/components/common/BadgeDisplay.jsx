@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Box, Modal, Typography } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import styled from "styled-components";
 
-const badges = [
+const initBadges = [
   {
     id: 1,
     name: "Ethics",
@@ -46,6 +46,9 @@ const BadgeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  border-radius: 30px;
+  padding: 5px;
+  box-shadow: -1px 2px 5px #a6acaf;
 `;
 
 const BadgeImage = styled(motion.img)`
@@ -87,6 +90,7 @@ const BadgeModal = ({ badge }) => (
 );
 
 const BadgeDisplay = ({ activeBadges = [] }) => {
+  const [badges, setBadges] = useState([]);
   const [hoveredBadgeId, setHoveredBadgeId] = useState(null);
   const timeoutRef = useRef(null);
 
@@ -102,7 +106,13 @@ const BadgeDisplay = ({ activeBadges = [] }) => {
       setHoveredBadgeId(null);
     }, 50); // Small delay to prevent flickering
   };
-
+  useEffect(() => {
+    const formattedBadges = initBadges.filter(({ id }) => activeBadges.includes(id));
+    setBadges([
+      ...formattedBadges,
+      ...initBadges.filter(({ id }) => !activeBadges.includes(id)),
+    ]);
+  }, []);
   return (
     <BadgeContainer>
       {badges.map((badge) => (

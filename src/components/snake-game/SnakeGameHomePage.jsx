@@ -21,6 +21,9 @@ import animated_snake from "../../../public/lotties/snake-game/snake.json";
 import Lottie from "lottie-react";
 import GestureSampleCollectCard from "./GestureSampleCollectCard";
 import SnakeGame from "./SnakeGame";
+import Intro from "../common/Intro";
+import BadgeDisplay from "../common/BadgeDisplay";
+import Outro from "../common/Outro";
 
 const DataCollection = ({
   samples,
@@ -242,7 +245,7 @@ const SnakeGameHomePage = () => {
   }, [samples]);
 
   useEffect(() => {
-    if (currentPage === 0) {
+    if (currentPage === 1) {
       jungleAudioRef?.current?.play();
     } else {
       jungleAudioRef?.current?.pause();
@@ -250,10 +253,16 @@ const SnakeGameHomePage = () => {
   }, [currentPage]);
   return (
     <Box>
-      {/* <Box sx={{ position: "fixed", top: "10%", left: "20px", zIndex: 1000 }}>
+      {currentPage > 0 && (
+        <Box sx={{ position: "fixed", top: "10%", left: "20px", zIndex: 1000 }}>
           <BadgeDisplay activeBadges={[1, 3, 5]} />
-        </Box> */}
-      {currentPage == 0 && (
+        </Box>
+      )}
+      {currentPage === 0 && (
+        <Intro projectName={"Snake Game"} handleOpenProject={goToNextPage} />
+      )}
+
+      {currentPage == 1 && (
         <Box
           sx={{
             backgroundImage: `url('https://firebasestorage.googleapis.com/v0/b/vizuaradelta.appspot.com/o/AI%20Labs%2FSnake%20Game%20kids%2FYour%20paragraph%20text%20(17).png?alt=media&token=97e07164-e937-4080-9e36-51c5eb233b2a')`,
@@ -273,7 +282,7 @@ const SnakeGameHomePage = () => {
               alignItems: "center",
               flexDirection: "column",
               flexWrap: "wrap",
-            //   gap: 2,
+              //   gap: 2,
             }}
           >
             <Box
@@ -284,7 +293,7 @@ const SnakeGameHomePage = () => {
                 flexDirection: "column",
                 flexWrap: "wrap",
                 overFlow: "hidden",
-                maxWidth: '1000px',
+                maxWidth: "1000px",
                 mt: 2,
               }}
             >
@@ -308,11 +317,11 @@ const SnakeGameHomePage = () => {
                 gutterBottom
                 sx={{
                   //   padding: "0px 30px",
-                  maxWidth: '600px',
+                  maxWidth: "600px",
                   color: "#f34c89",
                   fontWeight: "bold !important",
                   textShadow: "2px 2px 6px #000",
-                //   fontSize: { xs: "10px", sm: "14px", md: "20px", lg: "50px" },
+                  //   fontSize: { xs: "10px", sm: "14px", md: "20px", lg: "50px" },
                   fontFamily: "'Sofadi One', system-ui",
                 }}
               >
@@ -386,7 +395,7 @@ const SnakeGameHomePage = () => {
         </Box>
       )}
 
-      {currentPage === 1 && (
+      {currentPage === 2 && (
         <SnakeGame
           tf={tf}
           model={model}
@@ -401,9 +410,18 @@ const SnakeGameHomePage = () => {
           goToNextPage={goToNextPage}
         />
       )}
+      {currentPage === 3 && (
+        <Outro
+          content={[
+            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quae ad nemo similique veniam vel veritatis suscipit deserunt dolor, quas, excepturi, deleniti placeat nihil exercitationem alias animi cupiditate! In odio iste rem nulla quos veniam",
+            " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quae ad nemo similique veniam vel veritatis suscipit deserunt dolor, quas, excepturi, deleniti placeat nihil exercitationem alias animi cupiditate! In odio iste rem nulla quos veniam.",
+          ]}
+          goToPreviousPage={goToPreviousPage}
+        />
+      )}
 
       <audio ref={waterDropAudioRef} src="/music/waterdrop.mp3" />
-      <audio ref={jungleAudioRef} src="/music/jungle-sound-effect.mp3" loop/>
+      <audio ref={jungleAudioRef} src="/music/jungle-sound-effect.mp3" loop />
     </Box>
   );
 };

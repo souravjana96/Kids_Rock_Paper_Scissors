@@ -20,6 +20,8 @@ import { WaveSvg } from "./SVG";
 import GestureSampleCollectCard from "./GestureSampleCollectCard";
 import FramerMotionAnimatedContainer from "../common/FramerMotionAnimatedContainer";
 import BadgeDisplay from "../common/BadgeDisplay";
+import Intro from "../common/Intro";
+import Outro from "../common/Outro";
 
 const DataCollection = ({
   samples,
@@ -213,10 +215,15 @@ const RPCHomePage = () => {
 
   return (
     <Box>
-      {/* <Box sx={{ position: "fixed", top: "10%", left: "20px", zIndex: 1000 }}>
-        <BadgeDisplay activeBadges={[1, 3, 5]} />
-      </Box> */}
-      {currentPage == 0 && (
+      {currentPage > 0 && (
+        <Box sx={{ position: "fixed", top: "10%", left: "20px", zIndex: 1000 }}>
+          <BadgeDisplay activeBadges={[1, 3, 5]} />
+        </Box>
+      )}
+       {currentPage === 0 && (
+        <Intro projectName={"Rock, Paper, Scissors Game"} handleOpenProject={goToNextPage} />
+      )}
+      {currentPage == 1 && (
         <Box>
           <Box
             sx={{
@@ -357,7 +364,7 @@ const RPCHomePage = () => {
         </Box>
       )}
 
-      {currentPage === 1 && (
+      {currentPage === 2 && (
         <Game
           tf={tf}
           model={model}
@@ -370,6 +377,15 @@ const RPCHomePage = () => {
           setHighestIndex={setHighestIndex}
           goToPreviousPage={goToPreviousPage}
           goToNextPage={goToNextPage}
+        />
+      )}
+      {currentPage === 3 && (
+        <Outro
+          content={[
+            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quae ad nemo similique veniam vel veritatis suscipit deserunt dolor, quas, excepturi, deleniti placeat nihil exercitationem alias animi cupiditate! In odio iste rem nulla quos veniam",
+            " Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero quae ad nemo similique veniam vel veritatis suscipit deserunt dolor, quas, excepturi, deleniti placeat nihil exercitationem alias animi cupiditate! In odio iste rem nulla quos veniam.",
+          ]}
+          goToPreviousPage={goToPreviousPage}
         />
       )}
 

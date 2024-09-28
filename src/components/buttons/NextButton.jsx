@@ -10,8 +10,10 @@ const NextButton = ({ isDisabled = false, ...props }) => {
         fontWeight: "bold",
         textTransform: "none",
         letterSpacing: "1px",
-        borderRadius: "50px",
-        px: 2,
+        borderRadius: "30px",
+        py: 1,
+        px: 5,
+        fontSize: '24px',
         transition: "background 0.3s, transform 0.2s",
         background: !isDisabled
           ? "linear-gradient(to right, #5170FF, #FF66C4)"
