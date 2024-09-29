@@ -335,7 +335,7 @@ const GameCanvas = ({
         <Box
           sx={{
             position: "absolute",
-            left: "50px",
+            left: "90px",
             top: "90px",
             zIndex: 50,
             transform: {
