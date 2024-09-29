@@ -130,7 +130,7 @@ const GameCanvas = ({
     const distanceX = Math.abs(headX - appleX);
     const distanceY = Math.abs(headY - appleY);
 
-    const collisionDistance = 1.5; // Set tolerance for eating the apple
+    const collisionDistance = 3.2; // Set tolerance for eating the apple
     if (distanceX < collisionDistance && distanceY < collisionDistance) {
       foodAudioRef.current.play();
       let newApple = createApple();
