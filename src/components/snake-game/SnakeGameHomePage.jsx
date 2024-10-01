@@ -24,6 +24,7 @@ import SnakeGame from "./SnakeGame";
 import Intro from "../common/Intro";
 import BadgeDisplay from "../common/BadgeDisplay";
 import Outro from "../common/Outro";
+import IntroPopUp from "../common/IntroPopUp";
 
 const initBadges = [
   {
@@ -303,7 +304,7 @@ const SnakeGameHomePage = () => {
     <Box>
       {currentPage > 0 && (
         <Box sx={{ position: "fixed", top: "10%", left: "20px", zIndex: 1000 }}>
-          <BadgeDisplay activeBadges={[2,4, 5]} initBadges={initBadges} />
+          <BadgeDisplay activeBadges={[2, 4, 5]} initBadges={initBadges} />
         </Box>
       )}
       {currentPage === 0 && (
@@ -407,6 +408,13 @@ const SnakeGameHomePage = () => {
           </Box>
 
           <Box sx={{}}>
+            <Box>
+              <IntroPopUp
+                content={
+                  "Project is fulfilling: Intelligence, Life Skills, Creativity"
+                }
+              />
+            </Box>
             <Box sx={{ py: 5 }}>
               <DataCollection
                 activeCard={activeCard}
@@ -459,10 +467,18 @@ const SnakeGameHomePage = () => {
         />
       )}
       {currentPage === 3 && (
+        // <Outro
+        //   content={[
+        //     "In this project, we learned how to control a game using hand gestures instead of buttons.",
+        //     "This shows us how technology can make things more fun and interactive in cool new ways!",
+        //   ]}
+        //   goToPreviousPage={goToPreviousPage}
+        // />
         <Outro
           content={[
-            "In this project, we learned how to control a game using hand gestures instead of buttons.",
-            "This shows us how technology can make things more fun and interactive in cool new ways!",
+            "We learned how AI can recognize our hand movements to control the snake in the game. We understood that accurate gestures help us control the snake better and play the game more effectively.",
+            "By playing the game, we developed our focus and hand-eye coordination. We practiced making quick decisions to help the snake eat food and grow before time runs out.",
+            "The project sparked our creativity by showing us how to control the game with our gestures instead of using regular controllers. It also made us think of other fun ways to use gestures to control things, like turning lights on and off or changing TV channels.",
           ]}
           goToPreviousPage={goToPreviousPage}
         />

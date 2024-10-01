@@ -22,6 +22,7 @@ import FramerMotionAnimatedContainer from "../common/FramerMotionAnimatedContain
 import BadgeDisplay from "../common/BadgeDisplay";
 import Intro from "../common/Intro";
 import Outro from "../common/Outro";
+import IntroPopUp from "../common/IntroPopUp";
 
 const initBadges = [
   {
@@ -377,6 +378,13 @@ const RPCHomePage = () => {
               padding: "20px",
             }}
           >
+             <Box>
+              <IntroPopUp
+                content={
+                  "Project is fulfilling: Intelligence, Life Skills, Creativity"
+                }
+              />
+            </Box>
             <Box sx={{ pb: 5 }}>
               <FramerMotionAnimatedContainer>
                 <DataCollection
@@ -431,10 +439,18 @@ const RPCHomePage = () => {
         />
       )}
       {currentPage === 3 && (
+        // <Outro
+        //   content={[
+        //     "In this project, we learned how to use our hands to play rock-paper-scissors instead of buttons. It was fun to use gestures and see how we can control the game with our movements!",
+        //     "We also saw how the smart Bot can guess what we will do next by watching our patterns. This teaches us to think carefully and change our moves to win against the Bot!",
+        //   ]}
+        //   goToPreviousPage={goToPreviousPage}
+        // />
         <Outro
           content={[
-            "In this project, we learned how to use our hands to play rock-paper-scissors instead of buttons. It was fun to use gestures and see how we can control the game with our movements!",
-            "We also saw how the smart Bot can guess what we will do next by watching our patterns. This teaches us to think carefully and change our moves to win against the Bot!",
+            "We learned to use our hands to play rock-paper-scissors. We saw how the AI bot understands our gestures and can guess what we will do next. This helps us think more and change our plans to win against the bot.",
+            "By playing many rounds, we learned to focus and pay attention. We practiced changing our strategies and staying alert while playing against a smart bot that watches our moves.",
+            "The game made us think of smart ways to beat the bot. It also helped us imagine how technology can guess what people will do and how we can use AI in real life to solve problems.",
           ]}
           goToPreviousPage={goToPreviousPage}
         />

@@ -31,6 +31,8 @@ import Lottie from "lottie-react";
 import animated_ai_bot from "../../../public/lotties/netflix/game_over.json";
 import BackArrowButton from "../buttons/BackArrowButton";
 import CommonButton from "../buttons/CommonButton";
+import Swal from "sweetalert2";
+import IntroPopUp from "../common/IntroPopUp";
 
 const initBadges = [
   {
@@ -646,6 +648,13 @@ const NetflixHome = () => {
               padding: "20px",
             }}
           >
+            <Box>
+              <IntroPopUp
+                content={
+                  "Project is fulfilling: Intelligence, Life Skills, Creativity"
+                }
+              />
+            </Box>
             <Box sx={{ pb: 5 }}>
               <FramerMotionAnimatedContainer>
                 <DataCollection
@@ -706,10 +715,18 @@ const NetflixHome = () => {
         />
       )}
       {currentPage === 3 && (
+        // <Outro
+        //   content={[
+        //     "In this project, we learned how we can replace our traditional remote with cool hand gestures.",
+        //     "We saw how different gestures can be used for different tasks, showing us new ways to control things like videos or other devices.",
+        //   ]}
+        //   goToPreviousPage={goToPreviousPage}
+        // />
         <Outro
           content={[
-            "In this project, we learned how we can replace our traditional remote with cool hand gestures.",
-            "We saw how different gestures can be used for different tasks, showing us new ways to control things like videos or other devices.",
+            "We learned that being careful with hand gestures helps the AI work better. Small details, like how we move our hands, can make a big difference in making the system smart.",
+            "We practiced patience and focus by placing our hands correctly while playing the game. These skills help us stay focused and do things carefully in our everyday life.",
+            "We explored fun, new ways to control things using hand gestures. This made us imagine how we could use gestures, voice commands, or even facial expressions to control devices like TVs or lights at home.",
           ]}
           goToPreviousPage={goToPreviousPage}
         />
